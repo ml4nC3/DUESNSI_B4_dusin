@@ -4,7 +4,7 @@
     <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet"></head>
 <body>
     <h1>DUSIN</h1>
-    <form action= '/' method="post">
+    <form action= '/remise' method="post">
     <div class="form-group">
         <label for="nom">Votre nom</label><br>
         <input type="text" class="form-control" id="nom" name="nom" aria-describedby="nom_aide">
@@ -22,7 +22,7 @@
       <div class="form-group">
         <label for="classe">Votre classe</label><br>
         <input type="text" class="form-control" id="classe" name="classe" aria-describedby="classe_aide">
-        <small class= "help" id="classe_aide">Entrez votre classe.</small>
+        <small class= "help" id="nom_aide">Entrez votre classe.</small>
         <small class="error">Ce champ est requis</small>
         </div>
 

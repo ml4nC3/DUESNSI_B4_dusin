@@ -20,7 +20,7 @@ async def affiche(request: Request):
     return templates.TemplateResponse("item.html", {'request': request})
 
 
-@app.post("/", response_class=HTMLResponse)
+@app.post("/remise", response_class=HTMLResponse)
 async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(...), classe: str = Form(...)):
     """
     Fonction qui traite la requête de connexion d'un élève à l'interface de dépot
@@ -46,8 +46,8 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     return templates.TemplateResponse("index.html", {'request': request, "data_eleve": data_eleve})
 
 
-@app.post("/remise", response_class=HTMLResponse)
-async def remise_fichier(fichier_1: UploadFile = File(...)):
+@app.post("/remise/validation", response_class=HTMLResponse)
+async def remise_fichier(request: Request, fichier_1: UploadFile = File(...)):
     # NL : pourquoi ne pas gérer la remise de fichier en même temps que le reste du formulaire ?
     # NL : pourquoi pas mais peut-être sur 2 pages distinctes (authentification puis remise des fichiers, ce serait pas mal)
-    return {"filename": fichier_1.filename}
+    return templates.TemplateResponse("valide.html",{'request':request,'filename': fichier_1.filename})

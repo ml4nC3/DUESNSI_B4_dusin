@@ -6,16 +6,16 @@
     <h1>Page de remise</h1>
     <p> Votre dossier au nom de  {{ prenom }} {{ nom }} en {{classe}} existe. </p>
     <p> Vous pouvez maintenant charger les fichiers à déposer.</p>
-    <form action= '/' method="post">
+    <form action= '/remise/validation' method="post" enctype="multipart/form-data">
       <div class="form-group">
-          <label for="nom">Parcourir</label><br>
+          <label for="fichier_1">Sélectionner le fichier à envoyer</label><br>
           <input type="file" id="fichier_1" name="fichier_1" >
           <small class= "help" id="nom_aide">Charger ici votre fichier.</small>
           <small class="error">Ce champ est requis</small>
           </div>
   
         <div class="button">
-          <button type="submit">Remettre</button>
+          <button> Remettre</button>
       </div>
 </body>
 </html>
