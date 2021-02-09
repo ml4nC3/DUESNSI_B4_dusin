@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>remise</title>
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet"></head>
+<body>
+    <h1>Page de remise</h1>
+    <p> Votre dossier au nom de  {{ prenom }} {{ nom }} en {{classe}} existe. </p>
+    <p> Vous pouvez maintenant charger les fichiers à déposer.</p>
+    <form action= '/' method="post">
+      <div class="form-group">
+          <label for="nom">Parcourir</label><br>
+          <input type="file" id="fichier_1" name="fichier_1" >
+          <small class= "help" id="nom_aide">Charger ici votre fichier.</small>
+          <small class="error">Ce champ est requis</small>
+          </div>
+  
+        <div class="button">
+          <button type="submit">Remettre</button>
+      </div>
+</body>
+</html>
