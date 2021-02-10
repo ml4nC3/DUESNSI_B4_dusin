@@ -11,14 +11,14 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/", response_class=HTMLResponse)
-async def affiche(request: Request):
+async def accueil(request: Request):
     """
     Fonction qui traite la requête d'accès à la page racine du site Web
     :param request:
     :return: Page d'accueil au format HTML
     """
     # TODO : ajouter ici le code pour récupérer la liste d'élèves, classe etc..
-    return templates.TemplateResponse("item.html", {'request': request})
+    return templates.TemplateResponse("index.html", {'request': request})
 
 
 @app.post("/remise", response_class=HTMLResponse)
@@ -44,7 +44,7 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
         'prenom': prenom,
         'classe': classe
     }
-    return templates.TemplateResponse("index.html", {'request': request, "data_eleve": data_eleve})
+    return templates.TemplateResponse("remise.html", {'request': request, "data_eleve": data_eleve})
 
 
 @app.post("/remise/validation", response_class=HTMLResponse)
@@ -55,4 +55,6 @@ async def remise_des_fichiers(request: Request, fichiers : List[UploadFile] = Fi
     liste_fichiers = filenames[0]
     for file in filenames[1:] : 
         liste_fichiers += ', ' + file
-    return templates.TemplateResponse("valide.html",{'request':request,'liste_fichiers':liste_fichiers })
+    return templates.TemplateResponse("validation.html",{'request':request,'liste_fichiers':liste_fichiers })
+
+
