@@ -4,12 +4,12 @@
     <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet"></head>
 <body>
     <h1>Page de remise</h1>
-    <p> Votre dossier au nom de  {{ prenom }} {{ nom }} en {{classe}} existe. </p>
+    <p> Votre dossier au nom de  {{ data_eleve['prenom'] }} {{ data_eleve['nom'] }} en {{data_eleve['classe']}} existe. </p>
     <p> Vous pouvez maintenant charger les fichiers à déposer.</p>
     <form action= '/remise/validation' method="post" enctype="multipart/form-data">
       <div class="form-group">
-          <label for="fichier_1">Sélectionner le fichier à envoyer</label><br>
-          <input type="file" id="fichier_1" name="fichier_1" >
+          <label for="fichiers">Sélectionner le fichier à envoyer</label><br>
+          <input type="file" multiple  id="fichiers" name="fichiers" >
           <small class= "help" id="nom_aide">Charger ici votre fichier.</small>
           <small class="error">Ce champ est requis</small>
           </div>
@@ -19,3 +19,4 @@
       </div>
 </body>
 </html>
+

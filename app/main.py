@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
+from typing import List
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -47,7 +48,11 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
 
 
 @app.post("/remise/validation", response_class=HTMLResponse)
-async def remise_fichier(request: Request, fichier_1: UploadFile = File(...)):
+async def remise_des_fichiers(request: Request, fichiers : List[UploadFile] = File(...)):
     # NL : pourquoi ne pas gérer la remise de fichier en même temps que le reste du formulaire ?
     # NL : pourquoi pas mais peut-être sur 2 pages distinctes (authentification puis remise des fichiers, ce serait pas mal)
-    return templates.TemplateResponse("valide.html",{'request':request,'filename': fichier_1.filename})
+    filenames = [fichier.filename for fichier in fichiers]
+    liste_fichiers = filenames[0]
+    for file in filenames[1:] : 
+        liste_fichiers += ', ' + file
+    return templates.TemplateResponse("valide.html",{'request':request,'liste_fichiers':liste_fichiers })
