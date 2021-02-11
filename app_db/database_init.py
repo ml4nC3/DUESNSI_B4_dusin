@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
-create_table_classe = """CREATE TABLE IF NOT EXISTS `CLASSE` (
+create_table_classes = """CREATE TABLE IF NOT EXISTS `CLASSES` (
   `id_classe` VARCHAR(42),
   `libelle` VARCHAR(42),
   `niveau` VARCHAR(42),
@@ -40,7 +40,7 @@ alter_table_noter1 = "ALTER TABLE `NOTER` ADD FOREIGN KEY (`id_eval`) REFERENCES
 alter_table_noter2 = "ALTER TABLE `NOTER` ADD FOREIGN KEY (`id_eleve`) REFERENCES `ELEVE` (`id_eleve`);"
 
 requests = [
-    create_table_classe,
+    create_table_classes,
     create_table_fichiers,
     create_table_eleves,
     create_table_noter,
