@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os, pathlib, json
 from typing import List
-from dusindb import DusinDB
+from app.dusindb import DusinDB
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -46,6 +46,8 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
         'prenom': prenom,
         'classe': classe
     }
+    dusin_db.ajout_eleve(classe, nom, prenom)
+
     return templates.TemplateResponse("remise.html", {'request': request, "data_eleve": data_eleve})
 
 
