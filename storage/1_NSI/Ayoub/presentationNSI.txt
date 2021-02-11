@@ -1,0 +1,27 @@
+﻿Baccalauréat spécialité Numérique et Sciences Informatiques
+Pourquoi maintenant?
+Parce que l’informatique ne cesse de se développer et qu’elle est devenue une science à part entière, fonda mentale et appliquée.
+Parce qu’elle intervient de plus en plus dans les sciences de la vie, humaines ou sociales, la médecine comme dans tous les domaines liés aux communications numériques.
+Parce que les ordinateurs et les objets numériques sont omniprésents dans la vie professionnelle comme dans la vie privée et sont fortement interconnectés.
+Parce que l’informatique et les sciences du numérique représentent un vaste et dynamique gisement d’activités et d’emplois.
+
+Pour quels enjeux?
+Développer ses compétences de base dans le domaine de l’informatique.
+Prendre goût aux sciences du numérique lors d’activités variées : travaux pratiques, projets, exposés et débats.
+Développer la rigueur en apprenant les bases de la programmation,  clé de la maîtrise des ordina teurs.
+S’interroger sur la qualité, la sûreté, la fiabilité et la sécurité des  données numériques.
+Identifier et s’interroger sur les progrès, les avantages et les risques que génère la société numérique.
+
+Pour quel profit?
+Les contenus de l’enseignement de spécialité « NSI » sont suffisamment riches pour permettre à tout élève d’en tirer un profit quelle que soit son orientation future ; il prépare notamment à l’enseignement supérieur par le développement de plusieurs compétences telles que :
+maîtriser les outils et systèmes numériques ;
+mener un travail collaboratif ;
+conduire un projet en équipe ;
+présenter et justifier une démarche face à un jury.
+
+
+Tableau de repartition (en pourcentage) des spécialités des élèves ayant choisi NSI à Saint Félix Lasalle
+	Math	SI	SVT	SES	PC	LLCE	HGGSP	HG	AMC	HLP
+	
+2019	71	33	13	33	25	8	17	0	0	0
+2020	74	47	10	16	32	0	0	11	5	5
