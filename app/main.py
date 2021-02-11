@@ -33,14 +33,14 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     :param classe: classe de l'élève, en provenance du formulaire de la page ...
     :return: Page d'envoi des fichiers élèves au format HTML
     """
-    if not os.path.exists(classe):
-        os.mkdir(classe)
-    if not os.path.exists(classe + '/' + nom + '_' + prenom):
-        os.mkdir(classe + '/' + nom + '_' + prenom)
+    if not os.path.exists('./storage/'+ classe):
+        os.mkdir('./storage/'+ classe)
+    if not os.path.exists('./storage/'+ classe + '/' + nom + '_' + prenom):
+        os.mkdir('./storage/'+ classe + '/' + nom + '_' + prenom)
 
     global chemin_dossier_a_completer
 
-    chemin_dossier_a_completer = './' + classe + '/' + nom + '_' + prenom
+    chemin_dossier_a_completer = './storage/' + classe + '/' + nom + '_' + prenom
 
     # Préparation de la structure de donnée séparément afin d'améliorer la lisibilité du code
     data_eleve = {
