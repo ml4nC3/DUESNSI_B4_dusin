@@ -2,11 +2,12 @@ from fastapi import FastAPI, Request, Form, File, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import os
+import os, pathlib, json
 from typing import List
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/storage", StaticFiles(directory="storage"), name="storage")
 templates = Jinja2Templates(directory="templates")
 
 
@@ -64,3 +65,29 @@ async def remise_des_fichiers(request: Request, fichiers : List[UploadFile] = Fi
         liste_fichiers += fichier.filename + ', '
 
     return templates.TemplateResponse("validation.html",{'request':request,'liste_fichiers':liste_fichiers })
+
+
+@app.get("/prof", response_class=HTMLResponse)
+async def ihm_correction(request: Request):
+    # Pour récupérer l'extension d'un fichier : os.path.splitext(<path>), ou simplement str.split(".")
+
+    fichiers = {
+        "index.html": {"type": "html","path": "./storage/1_NSI/Bastien/index.html"},
+        "styles.css": {"type": "css","path": "./storage/1_NSI/Bastien/styles.css"},
+        "page1.html": {"type": "html","path": "./storage/1_NSI/Bastien/page1.html"}
+        }
+
+    for i, (fichier, f_attr) in enumerate(fichiers.items()):
+        try:
+            path = pathlib.Path(f_attr["path"])
+            fichier_os = open(path, "r", encoding="utf8")
+            f_attr["source"] = fichier_os.read()
+        except:
+            print("Erreur lecture fichier")
+        finally:
+            try:
+                fichier_os.close()
+            except:
+                pass
+
+    return templates.TemplateResponse("correction.html", {'request': request, "fichiers": fichiers, "json": json.dumps(fichiers)})
