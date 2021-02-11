@@ -1,0 +1,48 @@
+{
+	font-family: calibri, arial;
+}
+
+body{
+	background-color: #999999;
+}
+
+h1{
+	text-align: center;
+	font-size: 42px;
+	color:	#FF0000;
+}
+
+h2{
+	color:	#0000FF;
+	font-style: italic;
+	border-bottom: 1px #0000FF solid;
+}
+
+.image {
+	margin-left : 85%;
+}
+
+.image2 {
+	width : 98%;
+	position: absolute;
+}
+
+.image3 {
+	margin-left : 85%;
+	position: absolute;
+}
+
+.image4 {
+	margin-left : 50%;
+	margin-top: 15%;
+	width: 2%;
+	position: absolute;
+}
+
+.table {
+	border-collapse: collapse;
+	border: 1px black solid;
+	text-align: center;
+	padding-left : 10px;
+	padding-right : 10px;
+}
