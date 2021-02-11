@@ -7,26 +7,22 @@ create_table_classes = """CREATE TABLE IF NOT EXISTS `CLASSES` (
   `niveau` VARCHAR(42),
   PRIMARY KEY (`id_classe`));"""
 
+create_table_eleves = """CREATE TABLE IF NOT EXISTS `ELEVES` (
+  `id_eleve` VARCHAR(42),
+  `nom` VARCHAR(42),
+  `prenom` VARCHAR(42),
+  `id_classe` VARCHAR(42),
+  PRIMARY KEY (`id_eleve`),
+  FOREIGN KEY (`id_classe`) REFERENCES `CLASSES` (`id_classe`));"""
+
 create_table_fichiers = """CREATE TABLE IF NOT EXISTS `FICHIERS` (
   `id_fichier` VARCHAR(42),
   `empreinte` VARCHAR(42),
   `date_depot` VARCHAR(42),
   `chemin` VARCHAR(42),
   `id_eleve` VARCHAR(42),
-  PRIMARY KEY (`id_fichier`));"""
-
-create_table_eleves = """CREATE TABLE IF NOT EXISTS `ELEVES` (
-  `id_eleve` VARCHAR(42),
-  `nom` VARCHAR(42),
-  `prenom` VARCHAR(42),
-  `id_classe` VARCHAR(42),
-  PRIMARY KEY (`id_eleve`));"""
-
-create_table_noter = """CREATE TABLE IF NOT EXISTS `NOTER` (
-  `id_eleve` VARCHAR(42),
-  `id_eval` VARCHAR(42),
-  `note` VARCHAR(42),
-  PRIMARY KEY (`id_eleve`, `id_eval`));"""
+  PRIMARY KEY (`id_fichier`),
+  FOREIGN KEY (`id_eleve`) REFERENCES `ELEVES` (`id_eleve`));"""
 
 create_table_evaluations = """CREATE TABLE IF NOT EXISTS `EVALUATIONS` (
   `id_eval` VARCHAR(42),
@@ -34,21 +30,20 @@ create_table_evaluations = """CREATE TABLE IF NOT EXISTS `EVALUATIONS` (
   `criteres` VARCHAR(42),
   PRIMARY KEY (`id_eval`));"""
 
-alter_table_fichiers = "ALTER TABLE `FICHIERS` ADD FOREIGN KEY (`id_eleve`) REFERENCES `ELEVES` (`id_eleve`);"
-alter_table_eleves = "ALTER TABLE `ELEVES` ADD FOREIGN KEY (`id_classe`) REFERENCES `CLASSES` (`id_classe`);"
-alter_table_noter1 = "ALTER TABLE `NOTER` ADD FOREIGN KEY (`id_eval`) REFERENCES `EVALUATIONS` (`id_eval`);"
-alter_table_noter2 = "ALTER TABLE `NOTER` ADD FOREIGN KEY (`id_eleve`) REFERENCES `ELEVES` (`id_eleve`);"
+create_table_noter = """CREATE TABLE IF NOT EXISTS `NOTER` (
+  `id_eleve` VARCHAR(42),
+  `id_eval` VARCHAR(42),
+  `note` VARCHAR(42),
+  PRIMARY KEY (`id_eleve`, `id_eval`),
+  FOREIGN KEY (`id_eval`) REFERENCES `EVALUATIONS` (`id_eval`),
+  FOREIGN KEY (`id_eleve`) REFERENCES `ELEVES` (`id_eleve`));"""
 
 requests = [
     create_table_classes,
     create_table_fichiers,
     create_table_eleves,
     create_table_noter,
-    create_table_evaluations,
-    alter_table_fichiers,
-    alter_table_eleves,
-    alter_table_noter1,
-    alter_table_noter2]
+    create_table_evaluations]
 
 
 def database_init():
