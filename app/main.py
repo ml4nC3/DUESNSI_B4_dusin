@@ -20,6 +20,7 @@ async def accueil(request: Request):
     # TODO : ajouter ici le code pour récupérer la liste d'élèves, classe etc..
     return templates.TemplateResponse("index.html", {'request': request})
 
+chemin_dossier_a_completer = ""
 
 @app.post("/remise", response_class=HTMLResponse)
 async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(...), classe: str = Form(...)):
@@ -33,10 +34,12 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     """
     if not os.path.exists(classe):
         os.mkdir(classe)
-    if not os.path.exists(classe + '/' + prenom + '.' + nom):
-        os.mkdir(classe + '/' + prenom + '.' + nom)
+    if not os.path.exists(classe + '/' + nom + '_' + prenom):
+        os.mkdir(classe + '/' + nom + '_' + prenom)
 
-    # TODO : Ajouter ici le code pour écrire les fichiers envoyés ?
+    global chemin_dossier_a_completer
+
+    chemin_dossier_a_completer = './' + classe + '/' + nom + '_' + prenom
 
     # Préparation de la structure de donnée séparément afin d'améliorer la lisibilité du code
     data_eleve = {
@@ -49,12 +52,15 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
 
 @app.post("/remise/validation", response_class=HTMLResponse)
 async def remise_des_fichiers(request: Request, fichiers : List[UploadFile] = File(...)):
-    # NL : pourquoi ne pas gérer la remise de fichier en même temps que le reste du formulaire ?
-    # NL : pourquoi pas mais peut-être sur 2 pages distinctes (authentification puis remise des fichiers, ce serait pas mal)
-    filenames = [fichier.filename for fichier in fichiers]
-    liste_fichiers = filenames[0]
-    for file in filenames[1:] : 
-        liste_fichiers += ', ' + file
+    '''
+    provoque une erreur si retour arrière et nouvelle remise (sans passer par la page login)
+    '''
+    liste_fichiers = ''
+    for fichier in fichiers :
+        content = await fichier.read()
+        uploaded_file = open(chemin_dossier_a_completer + '/'+ fichier.filename, "wb")
+        uploaded_file.write(content)
+        uploaded_file.close()
+        liste_fichiers += fichier.filename + ', '
+
     return templates.TemplateResponse("validation.html",{'request':request,'liste_fichiers':liste_fichiers })
-
-
