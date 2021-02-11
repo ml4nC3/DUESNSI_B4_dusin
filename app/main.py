@@ -23,8 +23,6 @@ async def accueil(request: Request):
     # TODO : ajouter ici le code pour récupérer la liste d'élèves, classe etc..
     return templates.TemplateResponse("index.html", {'request': request})
 
-chemin_dossier_a_completer = ""
-
 @app.post("/remise", response_class=HTMLResponse)
 async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(...), classe: str = Form(...)):
     """
@@ -37,12 +35,10 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     """
     if not os.path.exists('./storage/'+ classe):
         os.mkdir('./storage/'+ classe)
+        #dusin_db.ajout_classe(classe) 
     if not os.path.exists('./storage/'+ classe + '/' + nom + '_' + prenom):
         os.mkdir('./storage/'+ classe + '/' + nom + '_' + prenom)
-
-    global chemin_dossier_a_completer
-
-    chemin_dossier_a_completer = './storage/' + classe + '/' + nom + '_' + prenom
+        #dusin_db.ajout_eleve(classe,nom,prenom)
 
     # Préparation de la structure de donnée séparément afin d'améliorer la lisibilité du code
     data_eleve = {
@@ -53,20 +49,25 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     return templates.TemplateResponse("remise.html", {'request': request, "data_eleve": data_eleve})
 
 
-@app.post("/remise/validation", response_class=HTMLResponse)
-async def remise_des_fichiers(request: Request, fichiers : List[UploadFile] = File(...)):
+@app.post("/remise/validation/{str_eleve}", response_class=HTMLResponse)
+async def remise_des_fichiers(request: Request, str_eleve : str, fichiers : List[UploadFile] = File(...)) :
     '''
     provoque une erreur si retour arrière et nouvelle remise (sans passer par la page login)
     '''
     liste_fichiers = ''
+    tmp = str_eleve.split('_')
+    data_eleve = {'classe': tmp[0],'nom': tmp[1],'prenom': tmp[2]}
     for fichier in fichiers :
         content = await fichier.read()
-        uploaded_file = open(chemin_dossier_a_completer + '/'+ fichier.filename, "wb")
+        chemin_fichier = './storage/' + data_eleve['classe'] + '/' + data_eleve['nom'] + '_' + data_eleve['prenom'] + '/'+ fichier.filename
+        uploaded_file = open(chemin_fichier, "wb")
         uploaded_file.write(content)
         uploaded_file.close()
         liste_fichiers += fichier.filename + ', '
+        #dusin_db.ajout_fichier(chemin_fichier, data_eleve['nom'], data_eleve['prenom']) 
 
     return templates.TemplateResponse("validation.html",{'request':request,'liste_fichiers':liste_fichiers })
+
 
 
 @app.get("/prof", response_class=HTMLResponse)
