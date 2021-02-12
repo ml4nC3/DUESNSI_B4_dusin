@@ -4,14 +4,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os, pathlib, json
 from typing import List
-from app.dusindb import DusinDB
+#from dusindb import DusinDB
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/storage", StaticFiles(directory="storage"), name="storage")
 templates = Jinja2Templates(directory="templates")
 
-dusin_db = DusinDB()
+#dusin_db = DusinDB()
 
 @app.get("/", response_class=HTMLResponse)
 async def accueil(request: Request):
@@ -35,10 +35,10 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     """
     if not os.path.exists('./storage/'+ classe):
         os.mkdir('./storage/'+ classe)
-        #dusin_db.ajout_classe(classe) 
+        dusin_db.ajout_classe(classe) 
     if not os.path.exists('./storage/'+ classe + '/' + nom + '_' + prenom):
         os.mkdir('./storage/'+ classe + '/' + nom + '_' + prenom)
-        #dusin_db.ajout_eleve(classe,nom,prenom)
+        dusin_db.ajout_eleve(classe,nom,prenom)
 
     # Préparation de la structure de donnée séparément afin d'améliorer la lisibilité du code
     data_eleve = {
@@ -46,8 +46,6 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
         'prenom': prenom,
         'classe': classe
     }
-    dusin_db.ajout_eleve(classe, nom, prenom)
-
     return templates.TemplateResponse("remise.html", {'request': request, "data_eleve": data_eleve})
 
 
@@ -65,14 +63,12 @@ async def remise_des_fichiers(request: Request, classe : str, nom : str, prenom 
         uploaded_file.write(content)
         uploaded_file.close()
         liste_fichiers += fichier.filename + ', '
-        #dusin_db.ajout_fichier(chemin_fichier, data_eleve['nom'], data_eleve['prenom']) 
+        dusin_db.ajout_fichier(chemin_fichier, data_eleve['nom'], data_eleve['prenom']) 
 
     return templates.TemplateResponse("validation.html",{'request':request,'liste_fichiers':liste_fichiers })
 
-
-
-@app.get("/prof", response_class=HTMLResponse)
-async def ihm_correction(request: Request):
+@app.get("/prof/correction/", response_class=HTMLResponse)
+async def ihm_correction(request: Request,classe=str,nom=str,prenom=str):
     # Pour récupérer l'extension d'un fichier : os.path.splitext(<path>), ou simplement str.split(".")
 
     fichiers = {
@@ -95,3 +91,8 @@ async def ihm_correction(request: Request):
                 pass
 
     return templates.TemplateResponse("correction.html", {'request': request, "fichiers": fichiers, "json": json.dumps(fichiers)})
+
+@app.get("/prof", response_class=HTMLResponse)
+async def selection_eleve(request: Request):
+    return templates.TemplateResponse("selection.html",{'request':request })
+
