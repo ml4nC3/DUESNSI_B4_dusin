@@ -68,20 +68,23 @@ async def remise_des_fichiers(request: Request, classe : str, nom : str, prenom 
     return templates.TemplateResponse("validation.html",{'request':request,'liste_fichiers':liste_fichiers })
 
 @app.get("/prof/correction/", response_class=HTMLResponse)
-async def ihm_correction(request: Request,classe=str,nom=str,prenom=str):
+async def ihm_correction(request: Request, classe=str ,nom=str, prenom=str):
     # Pour récupérer l'extension d'un fichier : os.path.splitext(<path>), ou simplement str.split(".")
 
-    fichiers = {
-        "index.html": {"type": "html","path": "./storage/1_NSI/Bastien/index.html"},
-        "styles.css": {"type": "css","path": "./storage/1_NSI/Bastien/styles.css"},
-        "page1.html": {"type": "html","path": "./storage/1_NSI/Bastien/page1.html"}
-        }
+    fichiers = dusin_db.lire_fichiers(classe, nom, prenom)
+    print(fichiers)
+
+    data_jinja = dict()
 
     for i, (fichier, f_attr) in enumerate(fichiers.items()):
         try:
             path = pathlib.Path(f_attr["path"])
             fichier_os = open(path, "r", encoding="utf8")
             f_attr["source"] = fichier_os.read()
+
+            path_jinja = "/".join(f_attr["path"].split("/")[2:])
+            print(f_attr["path"])
+            data_jinja[fichier] = {"path": path_jinja}
         except:
             print("Erreur lecture fichier")
         finally:
@@ -89,10 +92,13 @@ async def ihm_correction(request: Request,classe=str,nom=str,prenom=str):
                 fichier_os.close()
             except:
                 pass
-
-    return templates.TemplateResponse("correction.html", {'request': request, "fichiers": fichiers, "json": json.dumps(fichiers)})
+    print("Donnée JINJA: ")
+    print(data_jinja)
+    print(data_jinja['index.html']["path"])
+    return templates.TemplateResponse("correction.html", {'request': request, "fichiers": data_jinja, "json": json.dumps(fichiers)})
 
 @app.get("/prof", response_class=HTMLResponse)
 async def selection_eleve(request: Request):
     return templates.TemplateResponse("selection.html",{'request':request })
 
+# TODO : mettre à jour la liste des ifhciers dans le select du template correction

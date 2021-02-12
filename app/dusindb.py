@@ -109,13 +109,15 @@ class DusinDB:
         select = f"""SELECT chemin FROM fichiers 
                      WHERE id_eleve = {id_eleve};"""
         result = self.__select__(select)
+        # print("LOG ICI !!! (oui je sais c'est moche... mais bon, zut, ce sont des sprint de 20min")
+        # print(result)
 
         # Convertir les résutlats dans le format pratique pour la page prof : dict(nom_fichier: dict(chemin, type)
         fichiers = dict()
         for line in result:
-            fichier = line.split("/")[-1]
-            type = line.split(".")[-1]
-            fichiers["fichier"] = {"type": type,"path": line[0]}
+            fichier = line[0].split("/")[-1]
+            type = line[0].split(".")[-1]
+            fichiers[fichier] = {"type": type,"path": line[0]}
 
         return fichiers
 
