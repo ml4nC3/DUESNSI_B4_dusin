@@ -4,3 +4,4 @@
 /app_db/dusin.db-journal
 /app/__pycache__
 /storage/
+.DS_Store
