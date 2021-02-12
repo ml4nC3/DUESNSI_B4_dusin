@@ -1,0 +1,38 @@
+h1
+{
+  color : red;
+  font-weight: bold; 
+}
+
+.legende
+{
+  font-style: italic;
+  text-align: left ;
+  color : red;
+}
+
+#message
+{
+  color : green;
+}
+
+.mise_en_page_classique 
+{
+  color : black; 
+  font-style : normal;
+  font-weight : normal;
+}
+
+.theme_pas_content 
+{
+  color : red;
+  font-style : normal;
+  font-weight: bold;
+}
+
+.theme_content
+{
+  color : green; 
+  font-style : italic;
+  font-weight: normal;
+}

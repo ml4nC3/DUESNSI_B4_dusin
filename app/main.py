@@ -51,14 +51,13 @@ async def eleve_id(request: Request, nom: str = Form(...), prenom: str = Form(..
     return templates.TemplateResponse("remise.html", {'request': request, "data_eleve": data_eleve})
 
 
-@app.post("/remise/validation/{str_eleve}", response_class=HTMLResponse)
-async def remise_des_fichiers(request: Request, str_eleve : str, fichiers : List[UploadFile] = File(...)) :
+@app.post("/remise/validation/{classe}/{nom}/{prenom}", response_class=HTMLResponse)
+async def remise_des_fichiers(request: Request, classe : str, nom : str, prenom : str, fichiers : List[UploadFile] = File(...)) :
     '''
     provoque une erreur si retour arrière et nouvelle remise (sans passer par la page login)
     '''
     liste_fichiers = ''
-    tmp = str_eleve.split('_')
-    data_eleve = {'classe': tmp[0],'nom': tmp[1],'prenom': tmp[2]}
+    data_eleve = {'classe': classe,'nom': nom,'prenom': prenom}
     for fichier in fichiers :
         content = await fichier.read()
         chemin_fichier = './storage/' + data_eleve['classe'] + '/' + data_eleve['nom'] + '_' + data_eleve['prenom'] + '/'+ fichier.filename
