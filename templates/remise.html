@@ -8,15 +8,17 @@
     <p> Vous pouvez maintenant charger les fichiers à déposer.</p>
     <form action= "/remise/validation/{{data_eleve['classe']}}/{{ data_eleve['nom'] }}/{{ data_eleve['prenom'] }}" method="post" enctype="multipart/form-data">
       <div class="form-group">
-          <label for="fichiers">Sélectionner le fichier à envoyer</label><br>
-          <input type="file" multiple  id="fichiers" name="fichiers" >
-          <small class= "help" id="nom_aide">Charger ici votre fichier.</small>
-          <small class="error">Ce champ est requis</small>
-          </div>
-  
-        <div class="button">
-          <button> Remettre</button>
+          <label for="fichiers">Sélectionner le fichier à envoyer</label>
+          <p>&nbsp;</p>
+          <input type="file" multiple title="Charger ici votre fichier" id="fichiers" name="fichiers" ><br>
+          <!-- <small class= "help" id="nom_aide">Charger ici votre fichier.</small> -->
+          <!-- <small class="error">Ce champ est requis</small> -->
+            <p>&nbsp;</p>
+            <div class="button">
+            <button>Remettre</button>
+            </div>
       </div>
+
+
 </body>
 </html>
-

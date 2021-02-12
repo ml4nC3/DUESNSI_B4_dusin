@@ -2,10 +2,11 @@
 body {
     border-top: 12px solid #2de61d;
     background-color: white;
-  }
+     }
 
     h1 {
     text-align: center;
+
     margin: 0,8em auto;
     /* équivalent
         margin-top: 1em;
@@ -16,6 +17,8 @@ body {
   }
 
    .form-group {
+    font-family: Helvetica, sans-serif;
+    text-align: center;
     margin-top: 1em;
     padding: 1em;   
     background-color: #cbf1d0;
@@ -26,6 +29,7 @@ body {
    .button {
     margin-right: 1em;
     margin-left: 1em;
+    text-align: center;
   }
 
   

@@ -42,6 +42,18 @@ class DusinDB:
     def __del__(self):
         self.conn.close()
 
+    def __get_eleve_id(self,  nom: str, prenom: str) -> int:
+        select = f"""SELECT id_eleve FROM eleves 
+                    WHERE nom LIKE '{nom}' 
+                    AND prenom LIKE '{prenom}';"""
+        result = self.__select__(select)
+        # Le résutat doit normalement être unique. Si ce n'est pas le cas il y a un problème.
+        if len(result) == 1:
+            id_eleve = result[0][0]
+            return id_eleve
+        else:
+            return 0
+
     def ajout_classe(self, classe: str) -> bool:
         # insert into 'classes' ('libelle','niveau' ) values(classe, "1" )
         insert = f"INSERT INTO 'classes' ('libelle','niveau' ) values('{classe}', '1' )"
@@ -76,22 +88,38 @@ class DusinDB:
         :return: True si réussite, False sinon
         """
         # Récupérer l'ID de l'élève
-        select = f"""SELECT id_eleve FROM eleves 
-                    WHERE nom LIKE '{nom}' 
-                    AND prenom LIKE '{prenom}';"""
-        result = self.__select__(select)
-        # Le résutat doit normalement être unique. Si ce n'est pas le cas il y a un problème.
-        if len(result) == 1:
-            id_eleve = result[0][0]
-        else:
+        id_eleve = self.__get_eleve_id(nom, prenom)
+        if id_eleve == 0:
             return False
+
         # insert into 'fichiers' ('chemin','id_eleve') values(chemin_fichier,????)
         insert = f"INSERT INTO 'fichiers' ('chemin','id_eleve') values('{chemin}',{id_eleve})"
         return self.__insert__(insert)
 
-    def lire_fichiers(self) -> dict:
+    def lire_fichiers(self, classe: str, nom: str, prenom: str) -> dict:
         # TODO : récupérer les fichiers d'un élève donné d'une évaluation donnée
-        pass
+        fichier = None
+
+        # Récupérer l'ID de l'élève
+        id_eleve = self.__get_eleve_id(nom, prenom)
+        if id_eleve == 0:
+            return {}
+
+        # Récupérer la liste des fichiers correspondants
+        select = f"""SELECT chemin FROM fichiers 
+                     WHERE id_eleve = {id_eleve};"""
+        result = self.__select__(select)
+        # print("LOG ICI !!! (oui je sais c'est moche... mais bon, zut, ce sont des sprint de 20min")
+        # print(result)
+
+        # Convertir les résutlats dans le format pratique pour la page prof : dict(nom_fichier: dict(chemin, type)
+        fichiers = dict()
+        for line in result:
+            fichier = line[0].split("/")[-1]
+            type = line[0].split(".")[-1]
+            fichiers[fichier] = {"type": type,"path": line[0]}
+
+        return fichiers
 
     def lire_classes(self) -> dict:
         # TODO : écrire cette méthode afin de récupérer la liste des classes et remplacer le champ texte par une liste déroulante

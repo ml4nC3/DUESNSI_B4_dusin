@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>DUSIN</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet"></head>
+<body>
+    <h1>Sélection d'un élève.</h1>
+    <form action= '/prof/correction' method="get">
+    
+      <div class="form-group">
+        <label for="nom">Nom élève</label><br>
+        <input type="text" required class="form-control" title="Entrez le nom de famille" id="nom" name="nom" aria-describedby="nom_aide">
+
+        </div>
+      
+      <div class="form-group">
+        <label for="prenom">Prénom élève</label><br>
+        <input type="text" required class="form-control" title="Entrez le prénom" id="prenom" name="prenom" aria-describedby="prenom_aide">
+
+      </div>
+
+      <div class="form-group">
+        <label for="classe">Classe élève</label><br>
+        <input type="text" required class="form-control" title="Entrez la classe" id="classe" name="classe" aria-describedby="classe_aide">
+
+
+        </div>
+        <p>&nbsp;</p>
+      <div class="button">
+        <button type="submit">Sélectionner</button>
+    </div>
+    </form>
+
+</body>
+</html>

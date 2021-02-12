@@ -29,18 +29,19 @@
             <div class="row">
                 <div class="col-md-8 align-self-start">
                     <h2>Rendu de la page élève</h2>
-                    <iframe src="{{ fichiers['index.html'].path }}" frameborder="1" style="width: 100%; height: 85vh"></iframe>
+                    <iframe src="{{ url_for('storage', path=fichiers['index.html']['path']) }}" frameborder="1" style="width: 100%; height: 85vh"></iframe>
                 </div>
                 <!-- /.rendu -->
 
                 <div class="col-md-4">
-                        <div style="width: 70%; display:inline-block; background-color: #a6e22e">
+                        <div style="width: 70%; display:inline-block;">
                             <h2>Sources de la page</h2>
                         </div>
                         <div style="width: 25%; display:inline-block;" onchange="update_source()" >
                             <select name="sources" id="sources_selector">
-                                <option value="index.html">index.html</option>
-                                <option value="styles.css">styles.css</option>
+                                {% for fichier, path in fichiers.items() %}
+                                <option value="{{ fichier }}"> {{ fichier }} </option>
+                                {% endfor %}
                             </select>
                             <!-- /# -->
                         </div>
