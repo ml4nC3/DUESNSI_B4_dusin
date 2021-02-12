@@ -1,31 +1,37 @@
-<html>
+<!Doctype html>
+<html lang="fr"></html>
 <head>
+    <meta charset="utf-8">
     <title>DUSIN</title>
-    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet"></head>
+    <link href="css/styles.css" rel="stylesheet">
+  </head>
 <body>
     <h1>DUSIN</h1>
     <form action= '/remise' method="post">
+
     <div class="form-group">
         <label for="nom">Votre nom</label><br>
-        <input type="text" class="form-control" id="nom" name="nom" aria-describedby="nom_aide">
+        <input type="text" class="form-control" id="nom" name="nom" aria-describedby="nom_aide" title="Indiquez votre nom" required>
+        <br>
         <small class= "help" id="nom_aide">Entrez votre nom de famille</small>
-        <small class="error">Ce champ est requis</small>
         </div>
       
       <div class="form-group">
         <label for="prenom">Votre prénom</label><br>
-        <input type="text" class="form-control" id="prenom" name="prenom" aria-describedby="prenom_aide">
+        <input type="text" class="form-control" id="prenom" name="prenom" aria-describedby="prenom_aide" title="Indiquez votre prénom" required>
+        <br>
         <small class= "help" id="prenom_aide">Entrez votre prénom</small>
-        <small class="error">Ce champ est requis</small>
+       
       </div>
 
       <div class="form-group">
         <label for="classe">Votre classe</label><br>
-        <input type="text" class="form-control" id="classe" name="classe" aria-describedby="classe_aide">
+        <input type="text" class="form-control" id="classe" name="classe" aria-describedby="classe_aide" title="Indiquez votre classe" required>
+        <br>
         <small class= "help" id="nom_aide">Entrez votre classe.</small>
-        <small class="error">Ce champ est requis</small>
+        
         </div>
-
+      </br>
       <div class="button">
         <button type="submit">Envoyer le message</button>
     </div>
