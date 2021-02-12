@@ -4,14 +4,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os, pathlib, json
 from typing import List
-#from dusindb import DusinDB
+from app.dusindb import DusinDB
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/storage", StaticFiles(directory="storage"), name="storage")
 templates = Jinja2Templates(directory="templates")
 
-#dusin_db = DusinDB()
+dusin_db = DusinDB()
 
 @app.get("/", response_class=HTMLResponse)
 async def accueil(request: Request):
