@@ -2,3 +2,4 @@
 /.idea/
 /app_db/dusin.db
 /app_db/dusin.db-journal
+/app/__pycache__

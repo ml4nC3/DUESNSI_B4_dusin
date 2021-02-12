@@ -48,6 +48,13 @@ class DusinDB:
         return self.__insert__(insert)
 
     def ajout_eleve(self, classe: str, nom: str, prenom: str) -> bool:
+        """
+        Ajouter un élève dans la base de donnée.
+        :param classe: libellé de la classe de l'élève
+        :param nom: Nom de famille
+        :param prenom: Prénom de famille
+        :return: True si réussite, False sinon
+        """
         # Récupérer l'ID de la classe
         select = f"""SELECT id_classe FROM classes 
                      WHERE libelle LIKE '{classe}';"""
@@ -61,6 +68,13 @@ class DusinDB:
         return self.__insert__(insert)
 
     def ajout_fichier(self, chemin: str, nom: str, prenom: str) -> bool:
+        """
+        Ajouter un fichier dans la base de donnée
+        :param chemin: chemin du fichier à partir de la racine du serveur
+        :param nom: Nom de famille
+        :param prenom: Prénom de famille
+        :return: True si réussite, False sinon
+        """
         # Récupérer l'ID de l'élève
         select = f"""SELECT id_eleve FROM eleves 
                     WHERE nom LIKE '{nom}' 
@@ -76,7 +90,9 @@ class DusinDB:
         return self.__insert__(insert)
 
     def lire_fichiers(self) -> dict:
+        # TODO : récupérer les fichiers d'un élève donné d'une évaluation donnée
         pass
 
     def lire_classes(self) -> dict:
+        # TODO : écrire cette méthode afin de récupérer la liste des classes et remplacer le champ texte par une liste déroulante
         pass

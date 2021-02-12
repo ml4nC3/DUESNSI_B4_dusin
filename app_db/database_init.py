@@ -42,7 +42,7 @@ requests = [
 
 
 def database_init():
-    conn = sqlite3.connect("dusin.db")
+    conn = sqlite3.connect("./dusin.db")
 
     for request in requests:
         # Exécution des requêtes
