@@ -100,5 +100,3 @@ async def ihm_correction(request: Request, classe=str ,nom=str, prenom=str):
 @app.get("/prof", response_class=HTMLResponse)
 async def selection_eleve(request: Request):
     return templates.TemplateResponse("selection.html",{'request':request })
-
-# TODO : mettre à jour la liste des ifhciers dans le select du template correction
