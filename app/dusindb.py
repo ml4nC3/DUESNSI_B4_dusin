@@ -4,7 +4,11 @@ from sqlite3 import Error
 
 class DusinDB:
     def __init__(self):
-        self.conn = sqlite3.connect("./app_db/dusin.db")
+        try:
+            self.conn = sqlite3.connect("./app_db/dusin.db")
+        except Error as e:
+            print("ERREUR Ouverture BDD:")
+            print(e)
 
     def __select__(self, select_statement):
         #conn = sqlite3.connect("./app/expenses.db")
