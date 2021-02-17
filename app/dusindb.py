@@ -5,6 +5,7 @@ from sqlite3 import Error
 class DusinDB:
     def __init__(self):
         try:
+            print("ouverture ./app_db/dusin.db")
             self.conn = sqlite3.connect("./app_db/dusin.db")
         except Error as e:
             print("ERREUR Ouverture BDD:")
@@ -14,6 +15,7 @@ class DusinDB:
         #conn = sqlite3.connect("./app/expenses.db")
         try:
             c = self.conn.cursor()
+            print("BDD exécution : " + select_statement)
             c.execute(select_statement)
             results = c.fetchall()
         except Error as e:
@@ -30,6 +32,7 @@ class DusinDB:
         #conn = sqlite3.connect("./app/expenses.db")
         try:
             c = self.conn.cursor()
+            print("BDD exécution : " + insert_statement)
             c.execute(insert_statement)
             self.conn.commit()
         except Error as e:
