@@ -1,7 +1,9 @@
 /venvwin/
+/venv/
 /.idea/
 /app_db/dusin.db
 /app_db/dusin.db-journal
 /app/__pycache__
-/storage/
+/storage/**
 .DS_Store
+/storage/
